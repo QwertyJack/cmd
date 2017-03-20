@@ -7,7 +7,7 @@ $(function() {
             success: function(data) {
                 $("#b").html(data);
 
-                // refresh mathjax
+                // refresh mathjax in '#b'
                 MathJax.Hub.Queue(["Typeset", MathJax.Hub, "b"]);
             }
         });
