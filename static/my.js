@@ -1,4 +1,14 @@
 $(function() {
+
+    // init '#a'
+    $.ajax({
+        type: "GET",
+        url: "demo.md",
+        success: function(data) {
+            $("#a").html(data);
+        }
+    });
+
     $("#btn").click(function() {
         $.ajax({
             type: "POST",

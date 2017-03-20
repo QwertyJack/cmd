@@ -18,6 +18,7 @@ tar zxf 2.7.0.tar.gz
 ```
 
 * BOOM !!!
+  - Use `php-cli`
 ```
 cat demo.md | php parser.php > demo.index
 ```
