@@ -12,14 +12,18 @@
 composer require cebe/markdown "~1.0.1"
 ```
 
-* Install mathjax
+* Install MathJax
 ```
 tar zxf 2.7.0.tar.gz
 ```
 
 * BOOM !!!
 ```
-cat demo.md | php parser
+cat demo.md | php parser.php > demo.index
+```
+or if you have a web server (use `curl` as client for example)
+```
+curl <url/to/parser.php> -d text='[color red]**Hello World**[/color]'
 ```
 
 [Click me to see what happens.](http://cyp.davidandjack.cn/test/r/)
