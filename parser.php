@@ -51,14 +51,12 @@ MathJax.Hub.Config({
 <body>
 EOF;
     echo $head . $parser->parse($markdown) . '</body>';
-    die();
 } else {
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['text']) {
         $markdown = $_POST['text'];
         echo $parser->parse($markdown);
-        die();
     } else {
-        Header("Location: 403/404.html");
+        http_response_code(404);
         die();
     }
 }
