@@ -1,7 +1,8 @@
 # Colored Markdown
 
 ### Requirements
-* `composer`
+* PHP
+* composer
     - To install [cebe/markdown](https://github.com/cebe/markdown#installation-).
 
 ### Usage
