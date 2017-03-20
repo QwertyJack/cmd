@@ -10,12 +10,10 @@
 ```
 composer require cebe/markdown "~1.0.1"
 ```
-
 * Install mathjax
 ```
 tar zxf 2.7.0.tar.gz
 ```
-
 * BOOM !!!
 ```
 $ ./demo.php >index.html
