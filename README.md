@@ -18,15 +18,15 @@ tar zxf 2.7.0.tar.gz
 ```
 
 * BOOM !!!
-  - Use `php-cli`
+  - use `php-cli`
 ```
-cat demo.md | php parser.php > demo.index
+cat demo.md | php parser.php >demo.index
 ```
-or if you have a web server (use `curl` as client for example)
+  - or via a web server (use `curl` as client for example)
 ```
 curl <url/to/parser.php> -d text='[color red]**Hello World**[/color]'
 ```
 
-[Click me to see what happens.](http://cyp.davidandjack.cn/test/r/)
+The playground is [HERE](http://cyp.davidandjack.cn/test/r/).
 
 **HAVE FUN !!!**
