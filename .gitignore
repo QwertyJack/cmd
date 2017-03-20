@@ -1,0 +1,6 @@
+*.sw[op]
+MathJax-2.7.0
+composer.json
+composer.lock
+index.html
+vendor
