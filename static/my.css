@@ -1,0 +1,25 @@
+table {
+    text-align: center;
+    border: solid #add9c0;
+    border-width: 1px 0px 0px 1px;
+}
+th {
+    border: solid #add9c0;
+    border-width: 0px 1px 1px 0px;
+    background-color: #ffffa0;
+}
+td {
+    border: solid #add9c0;
+    border-width: 0px 1px 1px 0px;
+    background-color: #fffff0;
+}
+textarea {
+    font-size: 20px;
+}
+div.left {
+    float: left;
+    margin: 10px 35px 5px 0;
+}
+#btn {
+    font-size: 30px;
+}

@@ -19,7 +19,7 @@ tar zxf 2.7.0.tar.gz
 
 * BOOM !!!
 ```
-./demo.php >index.html
+cat demo.md | php parser
 ```
 
 [Click me to see what happens.](http://cyp.davidandjack.cn/test/r/)

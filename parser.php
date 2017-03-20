@@ -1,5 +1,3 @@
-#!/usr/bin/env php
-
 <?php
 
 require 'vendor/autoload.php';
@@ -32,8 +30,14 @@ class ColoredMarkdown extends \cebe\markdown\GithubMarkdown
     }
 }
 
-$markdown = file_get_contents('demo.md');
-$mathjax = <<<EOF
+$parser = new ColoredMarkdown();
+
+if (php_sapi_name() === 'cli') {
+    //$markdown = file_get_contents('demo.md');
+    $markdown = stream_get_contents(STDIN);
+    $head = <<<EOF
+<head>
+<title>Colored Markdown Demo</title>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
     extensions: ["tex2jax.js"],
@@ -42,24 +46,20 @@ MathJax.Hub.Config({
   });
 </script>
 <script type="text/javascript" src="MathJax-2.7.0/MathJax.js"></script>
-<style>
-table {
-    text-align: center;
-    border: solid #add9c0;
-    border-width: 1px 0px 0px 1px;
-}
-th {
-    border: solid #add9c0;
-    border-width: 0px 1px 1px 0px;
-    background-color: #ffffa0;
-}
-td {
-    border: solid #add9c0;
-    border-width: 0px 1px 1px 0px;
-    background-color: #fffff0;
-}
-</style>
-
+<link rel="stylesheet" href="static/my.css" type="text/css" />
+</head>
+<body>
 EOF;
-$parser = new ColoredMarkdown();
-echo $mathjax . $parser->parse($markdown);
+    echo $head . $parser->parse($markdown) . '</body>';
+    die();
+} else {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['text']) {
+        $markdown = $_POST['text'];
+        echo $parser->parse($markdown);
+        die();
+    } else {
+        Header("Location: 403/404.html");
+        die();
+    }
+}
+
