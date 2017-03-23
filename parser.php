@@ -51,13 +51,10 @@ MathJax.Hub.Config({
 <body>
 EOF;
     echo $head . $parser->parse($markdown) . '</body>';
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['text']) {
+    $markdown = $_POST['text'];
+    echo $parser->parse($markdown);
 } else {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['text']) {
-        $markdown = $_POST['text'];
-        echo $parser->parse($markdown);
-    } else {
-        http_response_code(404);
-        die();
-    }
+    http_response_code(404);
+    die();
 }
-
