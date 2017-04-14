@@ -2,14 +2,66 @@
 
 require 'vendor/autoload.php';
 
-class ColoredMarkdown extends \cebe\markdown\GithubMarkdown
+trait ColorBlockTrait
+{
+    // identify
+    protected function identifyColorBlock($line, $lines, $current)
+    {
+        // if a line starts with at least 3 backticks it is identified as a fenced code block
+        if (strncmp($line, '{{{', 3) === 0) {
+            return true;
+        }
+        return false;
+    }
+
+    // consume
+    protected function consumeColorBlock($lines, $current)
+    {
+        // create block array
+        $block = [
+            //'fencedCode',
+            'colorBlock',
+            'linescontent' => [],
+        ];
+        $line = rtrim($lines[$current]);
+
+        // detect language and fence length (can be more than 3 backticks)
+        $fence = substr($line, 0, $pos = strrpos($line, '{') + 1);
+        $language = substr($line, $pos);
+        if (!empty($language)) {
+            $block['language'] = $language;
+        }
+
+        // consume all lines until ```
+        for($i = $current + 1, $count = count($lines); $i < $count; $i++) {
+            //if (rtrim($line = $lines[$i]) !== $fence) {
+            if (rtrim($line = $lines[$i]) !== '}}}') {
+                $block['content'][] = $line;
+            } else {
+                // stop codeonsuming when code block is over
+                break;
+            }
+        }
+        return [$block, $i];
+    }
+
+    // render
+    protected function renderColorBlock($block)
+    {
+        //$class = isset($block['language']) ? ' class="language-' . $block['language'] . '"' : '';
+        $inner = $this->parse(implode("\n", $block['content']));
+        return "<div style='color:" . $block['language'] . "'>" . $inner . '</div>';
+    }
+}
+
+trait InlineColorTrait
 {
     /**
-     * @marker [color
+     * @marker {
      */
     protected function parseColor($markdown)
     {
-        if (preg_match('/^\[color ([\(\),#\w]+?)\](.+?)\[\/color\]/', $markdown, $matches)) {
+        if (preg_match('/^{([\(\),#\w]+?) ([^\$]+?)}/', $markdown, $matches)) {
             return [
                 // return the parsed tag as an element of the abstract syntax tree and call `parseInline()` to allow
                 // other inline markdown elements inside this tag
@@ -19,7 +71,7 @@ class ColoredMarkdown extends \cebe\markdown\GithubMarkdown
             ];
         }
         // in case we did not find a closing ~~ we just return the marker and skip 2 characters
-        return [['text', '[color'], 6];
+        return [['text', '{'], 1];
     }
 
     // rendering is the same as for block elements, we turn the abstract syntax array into a string.
@@ -28,6 +80,12 @@ class ColoredMarkdown extends \cebe\markdown\GithubMarkdown
         return '<span style="color:' . $element[2] . '">' . $this->renderAbsy($element[1]) . '</span>';
         //return '<font color="' . $element[2] . '">' . $this->renderAbsy($element[1]) . '</font>';
     }
+}
+
+class ColoredMarkdown extends \cebe\markdown\GithubMarkdown
+{
+    use ColorBlockTrait;
+    use InlineColorTrait;
 }
 
 $parser = new ColoredMarkdown();
