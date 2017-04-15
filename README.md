@@ -24,7 +24,7 @@ php composer.phar update
 ```
 curl <url/to/parser.php> -d text='{red **Hello World**}'
 ```
-See also `index.html` and `static/my.js`
+See also [index.html](index.html) and [static/my.js](static/my.js)
 
 * cli
 ```
