@@ -1,10 +1,22 @@
 $(function() {
 
+    var buffer = '';
+
+    $('#a').on('input', function () {
+        this.style.height = 'auto';
+        this.style.height = (this.scrollHeight) + 'px';
+    });
+
     function flush() {
+        if (buffer == $("#a").val()) {
+            console.log('!');
+            return;
+        }
+        buffer = $("#a").val();
         $.ajax({
             type: "POST",
             url: "parser.php",
-            data: {"text": $("#a").val()},
+            data: {"text": buffer},
             success: function(data) {
                 $("#b").html(data);
 
@@ -20,7 +32,7 @@ $(function() {
         url: "demo.md",
         success: function(data) {
             $("#a").html(data);
-            //flush();
+            flush();
         }
     });
 

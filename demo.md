@@ -1,13 +1,26 @@
 ## **{orange Hello}** {green *Colored*} {rgb(250,00,0) World} {#0000ff ***!!!***}
+***click right to flush***
 
 ### {red Inline Color}
-- `{Aqua foo}` rendered as {Aqua foo}
-- nested color seems not work properly, i.e.
-    * `{red red {blue blue}}`
-    * {red red {blue blue}}
+* Syntax: `{[color] text}` (notice there is a __space__ between color and text)
+* `{Aqua foo}` rendered as {Aqua foo}
+* Compatible with other markdown inline element
+    - {green _inner em_}
+    - __{Aqua outer bold}__
+    - {orange `inner code`}
+* Nested color are not supported <sup>{red bug}</sup>
+    - `{red red {blue blue}}` rendered as {red red {blue blue}}
+    - If not, the parser parses
+```
+{color1 text1} {color2 text2}
+```
+to
+```
+<color1 text1} {color2 text2>
+```
 
 ### {purple Color Block}
-- Use color as an 'outer block'
+- Use color as an 'outer block', eg.
 
 ```
 {{{ blue
@@ -16,7 +29,7 @@ This is a paragraph with __color__ !
 *Color block* works properly with {red **inlined color**} !!!
 }}}
 ```
-- rendered
+- rendered as
 
 {{{ blue
 This is a paragraph with __color__ !
@@ -34,7 +47,7 @@ This is a paragraph with __color__ !
     - subitem $ \color{navy}{x^2 + y^2 = z^2} $
 }}}
 
-- or colored code
+- and more: colored code
 
 {{{ maroon
 ```
@@ -43,33 +56,76 @@ return 0;
 ```
 }}}
 
+- nested colored block
+
+```
+{{{red
+red text
+
+{{{green
+green text
+
+{{{ blue
+blue text
+}}}
+normal
+```
+rendered as (notice: *only one `}}}` is required* because Color Block will closes
+itself once entering in another Color Block)
+
+{{{red
+red text
+
+{{{green
+green text
+
+{{{ blue
+blue text
+}}}
+normal
+
 ### {green MathJax Compatible}
-MathJax supports color, so use it directly, i.e.:
+MathJax supports color, so use it directly, eg.
 
 * Inline: `$\color{Fuchsia}{e^{i\pi} + 1 = 0}$`  rendered as  $\color{Fuchsia}{e^{i\pi} + 1 = 0}$
-* Block: 
+* Block:
 ```tex
 $$
 \color{orange}{
-    e^{i\pi} + 1 = 0
+    e^{i\pi} + 1 = 0 \\
+    F_n = F_{n-1} + F_{n-2}
 }
 $$
 ```
 - rendered as
 $$
 \color{orange}{
-    e^{i\pi} + 1 = 0
+    e^{i\pi} + 1 = 0 \\
+    F_n = F_{n-1} + F_{n-2}
 }
 $$
+
+* You can mix inline or block formulae with other markdown inline or block
+elements in most cases. However the only exception appears when using formulae
+begin with 4 spaces or a tab in a paragraph <sup>{red bug}</sup>, eg.
+
+```
+Here is a paragraph and goes the formula $$
+    x = 1;
+$$ note there is 4 spaces in front of the formula.
+```
+This snippet will be parsed as a `code` block thus the 1st '$$' is consumed.
 
 ### {red Source Code}
 * {maroon See} [{pink demo.md}](demo.md)
 
-### {blue Notes}
-There is a bug when using Color Block before a table: the cell may not parsed correctly.
-This is caused by nested parsing inside a Color Block.
-
-To solve the problem just surround the table with an empty Color Block.
+### {blue Known Bugs}
+* Nested inlined Color
+    - Solution: not known yet.
+* Formulae begin with 4 spaces or a tab inside a paragraph may parsed into a code block.
+    - Solution: do not add extra white space before formulae inside paragraph.
+* Table after a Color Black may not be parsed correctly.
+    - Solution: surround the table with an empty Color Block.
 
 ### Colors Table
 {{{

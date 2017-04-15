@@ -15,15 +15,18 @@ td {
 }
 textarea {
     font-size: 20px;
+    height: 3500px;
+    width: 100%;
 }
 div.left {
     float: left;
-    margin: 10px 35px 5px 0;
+    margin: 10px 0px 5px 0;
+    width: 45%;
 }
 #btn {
     font-size: 30px;
 }
 #b {
     width: 50%;
-    margin: 0px 35px;
+    margin: 5px 0 0 30px;
 }
