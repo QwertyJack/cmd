@@ -31,6 +31,6 @@ See also [index.html](index.html) and [static/my.js](static/my.js)
 cat demo.md | php parser.php
 ```
 
-The playground is [HERE](https://cyp.davidandjack.cn/test/r/).
+A playground is [HERE](https://cyp.davidandjack.cn/test/r/).
 
 **HAVE FUN !!!**
