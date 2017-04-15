@@ -27,7 +27,7 @@ MathJax.Hub.Config({
     tex2jax: {inlineMath: [["$","$"]]}
   });
 </script>
-<script type="text/javascript" src="MathJax-2.7.0/MathJax.js"></script>
+<script type="text/javascript" src="MathJax/MathJax.js"></script>
 <link rel="stylesheet" href="static/my.css" type="text/css" />
 </head>
 <body>

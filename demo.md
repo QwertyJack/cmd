@@ -1,23 +1,18 @@
 ## **{orange Hello}** {green *Colored*} {rgb(250,00,0) World} {#0000ff ***!!!***}
-***click right to flush***
+***单击右侧刷新***
 
 ### {red Inline Color}
 * Syntax: `{[color] text}` (notice there is a __space__ between color and text)
 * `{Aqua foo}` rendered as {Aqua foo}
 * Compatible with other markdown inline element
     - {green _inner em_}
-    - __{Aqua outer bold}__
+    - __{maroon outer strong}__
     - {orange `inner code`}
-* Nested color are not supported <sup>{red bug}</sup>
+    - *{blue italic}*
+* Nested color is supported, but at your own risk.
     - `{red red {blue blue}}` rendered as {red red {blue blue}}
-    - If not, the parser parses
-```
-{color1 text1} {color2 text2}
-```
-to
-```
-<color1 text1} {color2 text2>
-```
+    - `{red red} {blue blue}` more recommended; the same effect: {red red} {blue blue}
+    - {red or {orange even {green more {blue and {purple more {maroon crazy}}}}}}
 
 ### {purple Color Block}
 - Use color as an 'outer block', eg.
@@ -92,15 +87,20 @@ MathJax supports color, so use it directly, eg.
 ```tex
 $$
 \color{orange}{
-    e^{i\pi} + 1 = 0 \\
+    e^{i\pi} + 1 = 0
+} \\
+\color{green}{
     F_n = F_{n-1} + F_{n-2}
 }
 $$
 ```
-- rendered as
+rendered as
+
 $$
 \color{orange}{
-    e^{i\pi} + 1 = 0 \\
+    e^{i\pi} + 1 = 0
+} \\
+\color{green}{
     F_n = F_{n-1} + F_{n-2}
 }
 $$
@@ -120,11 +120,10 @@ This snippet will be parsed as a `code` block thus the 1st '$$' is consumed.
 * {maroon See} [{pink demo.md}](demo.md)
 
 ### {blue Known Bugs}
-* Nested inlined Color
-    - Solution: not known yet.
-* Formulae begin with 4 spaces or a tab inside a paragraph may parsed into a code block.
+* ~~Nested inlined Color~~ <sup>{green fixed}</sup>
+* ~~Formulae begin with 4 spaces or a tab inside a paragraph may parsed into a code block.~~ <sup>{blue partial fixed}</sup>
     - Solution: do not add extra white space before formulae inside paragraph.
-* Table after a Color Black may not be parsed correctly.
+* ~~Table after a Color Black may not be parsed correctly.~~ <sup>{green hacked}</sup>
     - Solution: surround the table with an empty Color Block.
 
 ### Colors Table

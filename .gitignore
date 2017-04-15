@@ -1,5 +1,5 @@
 *.sw[op]
-MathJax-2.7.0
-composer.*
 vendor
 test*
+composer.lock
+composer.phar
