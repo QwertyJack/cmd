@@ -1,15 +1,17 @@
-## **{orange Hello}** {green *Colored*} {rgb(250,00,0) World} {#0000ff ***!!!***}
+## **{Yellow Hello}** {green *Colored*} {rgb(250,00,0) World} {#0000ff ***!!!***}
 ***单击右侧刷新***
 
+***Press F8 or <ctrl+Enter> to flush***
+
 ### {red Inline Color}
-* Syntax: `{[color] text}` (notice there is a __space__ between color and text)
-* `{Aqua foo}` rendered as {Aqua foo}
-* Compatible with other markdown inline element
++ Syntax: `{[color] text}` (notice there is a __space__ between color and text)
++ `{Aqua foo}` rendered as {Aqua foo}
++ Compatible with other markdown inline element
     - {green _inner em_}
     - __{maroon outer strong}__
     - {orange `inner code`}
     - *{blue italic}*
-* Nested color is supported, but at your own risk.
++ Nested color is supported, but at your own risk.
     - `{red red {blue blue}}` rendered as {red red {blue blue}}
     - `{red red} {blue blue}` more recommended; the same effect: {red red} {blue blue}
     - {red or {orange even {green more {blue and {purple more {maroon crazy}}}}}}
@@ -35,10 +37,10 @@ This is a paragraph with __color__ !
 - another example: colored list
 
 {{{ red
-* item {green green}
-* item {black __em__}
-* item {blue *italic*}
-    - subitem {lime `pre`}
++ item {green green}
++ item {black __em__}
++ item {blue *italic*}
+    - subitem {lime `code`}
     - subitem $ \color{navy}{x^2 + y^2 = z^2} $
 }}}
 
@@ -82,8 +84,9 @@ normal
 ### {green MathJax Compatible}
 MathJax supports color, so use it directly, eg.
 
-* Inline: `$\color{Fuchsia}{e^{i\pi} + 1 = 0}$`  rendered as  $\color{Fuchsia}{e^{i\pi} + 1 = 0}$
-* Block:
++ Inline: `$\color{Fuchsia}{e^{i\pi} + 1 = 0}$`  rendered as  $\color{Fuchsia}{e^{i\pi} + 1 = 0}$
++ Block:
+
 ```tex
 $$
 \color{orange}{
@@ -105,7 +108,7 @@ $$
 }
 $$
 
-* You can mix inline or block formulae with other markdown inline or block
++ You can mix inline or block formulae with other markdown inline or block
 elements in most cases. However the only exception appears when using formulae
 begin with 4 spaces or a tab in a paragraph <sup>{red bug}</sup>, eg.
 
@@ -117,17 +120,22 @@ $$ note there is 4 spaces in front of the formula.
 This snippet will be parsed as a `code` block thus the 1st '$$' is consumed.
 
 ### {red Source Code}
-* {maroon See} [{pink demo.md}](demo.md)
++ {maroon See} [{pink demo.md}](demo.md)
 
 ### {blue Known Bugs}
-* ~~Nested inlined Color~~ <sup>{green fixed}</sup>
-* ~~Formulae begin with 4 spaces or a tab inside a paragraph may parsed into a code block.~~ <sup>{blue partial fixed}</sup>
++ Nested inlined Color fails when using a nested color and following by a non-nested inline color element in the same paragraph, i.e. <sup>{blue partial fixed}</sup>
+    - `{red red {blue blue}}` is good
+    - `{red red} {blue blue}` is good
+    - `{red red} {blue blue {green green}}` is good
+    - `{blue blue {green green}} {red red}` is **evil**
++ Formulae begin with 4 spaces or a tab inside a paragraph may parsed into a code block. <sup>{blue partial fixed}</sup>
     - Solution: do not add extra white space before formulae inside paragraph.
-* ~~Table after a Color Black may not be parsed correctly.~~ <sup>{green hacked}</sup>
++ Table after a Color Black may not be parsed correctly. <sup>{green hacked}</sup>
     - Solution: surround the table with an empty Color Block.
 
 ### Colors Table
-{{{
+
+{{{red
 color | hex | red | green | blue | CGA(alias)
 ----- | --- | --- | ----- | ---- | ---
 {White White}  | #FFFFFF | 255 | 255 | 255 | 15 (white)
@@ -147,3 +155,14 @@ color | hex | red | green | blue | CGA(alias)
 {Fuchsia Fuchsia}  | #FF00FF | 255 | 0 | 255 | 13 (high magenta); magenta
 {Purple Purple}  | #800080 | 128 | 0 | 128 | 5 (low magenta)
 }}}
+
+### Terminal Color
++  {black **black**}
++  {red red}
++  {green green}  
++  {yellow yellow} 
++  {blue blue}   
++  {magenta magenta}
++  {cyan cyan}   
++  {white white}  
++  {default default}

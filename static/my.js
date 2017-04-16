@@ -39,4 +39,12 @@ $(function() {
     $('#a').focusout(function() {
         flush();
     });
+
+	shortcut.add("F8",function() {
+        flush();
+	});
+
+	shortcut.add("Ctrl+Enter",function() {
+        flush();
+	});
 });

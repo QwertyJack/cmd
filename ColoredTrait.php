@@ -9,6 +9,8 @@
  * @license MIT
  */
 
+namespace jack\cmd;
+
 trait ColorBlockTrait
 {
     protected function identifyColorBlock($line, $lines, $current)
@@ -24,16 +26,17 @@ trait ColorBlockTrait
         // create block array
         $block = [
             'colorBlock',
-            'linescontent' => [],
+            'content' => [],
         ];
         $line = rtrim($lines[$current]);
 
         // detect color, could be null or anything else
         $fence = substr($line, 0, $pos = strrpos($line, '{') + 1);
         $color = substr($line, $pos);
-        if (!empty($color)) {
+        if (!empty($color))
             $block['color'] = $color;
-        }
+        else 
+            $block['color'] = '';
 
         // consume all lines until }}}
         for($i = $current + 1, $count = count($lines); $i < $count; $i++) {
@@ -52,11 +55,40 @@ trait ColorBlockTrait
     {
         //$class = isset($block['color']) ? ' class="color-' . $block['color'] . '"' : '';
         $inner = $this->parse(implode("\n", $block['content']));
-        return "<div style='color:" . $block['color'] . "'>" . $inner . '</div>';
+        return "<div style='color:" . ltrim($block['color']) . "'>" . $inner . '</div>';
     }
 }
 
-trait InlineColorTrait
+trait InlineColorTrait_nonested
+{
+    /**
+     * @marker {
+     */
+    protected function parseColor($markdown)
+    {
+        // greedy match
+        if (preg_match('/^{([\(\),#\w]+?) ([\s\S]+?)}/', $markdown, $matches))
+        {
+            return [
+                // return the parsed tag as an element of the abstract syntax tree and call `parseInline()` to allow
+                // other inline markdown elements inside this tag
+                ['color', $this->parseInline($matches[2]), $matches[1]],
+                // return the offset of the parsed text
+                strlen($matches[0])
+            ];
+        }
+        // in case we did not find a closing { we just return the marker and skip 1 characters
+        return [['text', '{'], 1];
+    }
+
+    // rendering is the same as for block elements, we turn the abstract syntax array into a string.
+    protected function renderColor($element)
+    {
+        return '<span style="color:' . $element[2] . '">' . $this->renderAbsy($element[1]) . '</span>';
+    }
+}
+
+trait InlineColorTrait_dev
 {
     /**
      * @marker {
@@ -119,14 +151,17 @@ trait MathJaxBlockTrait
         ];
         $pos = strpos($line = $lines[$current], '$$');
         $lines[$current] = substr($line, $pos + 2);
+        if (strlen($lines[$current]) === 0 )
+            $current += 1;
 
         // consume all lines until next $$
         for($i = $current, $count = count($lines); $i < $count; $i++) {
-            if ($pos = strpos($line = $lines[$i], '$$') !== False) {
+            if ($pos = strpos($line = ltrim($lines[$i]), '$$') !== False) {
+                $pos = strpos($line, '$$');
                 // stop codeonsuming when another $$ appears
-                if ($pos !== 1)
+                if ($pos !== 0)
                     $block['content'][] = substr($line, 0, $pos - 1);
-                $block['after'] = substr($line, $pos + 1);
+                $block['after'] = ltrim(substr($line, $pos + 2));
                 break;
             } else {
                 $block['content'][] = $line;

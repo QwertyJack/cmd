@@ -1,23 +1,26 @@
 <?php
 
-require 'vendor/autoload.php';
-require 'ColoredTrait.php';
+namespace jack\cmd;
+
+require_once 'ColoredMarkdown.php';
 
 $debug = True;
-
-class ColoredMarkdown extends \cebe\markdown\GithubMarkdown
-{
-    use ColorBlockTrait;
-    use InlineColorTrait;
-    use MathJaxBlockTrait;
-    use InlineMathJaxTrait;
-}
 
 $parser = new ColoredMarkdown();
 
 if (php_sapi_name() === 'cli') {
-    $markdown = stream_get_contents(STDIN);
-    $head = <<<EOF
+    if ($argc > 1)
+        $markdown = file_get_contents($argv[1]);
+    else
+        $markdown = stream_get_contents(STDIN);
+    if ($debug)
+    {
+        echo $parser->parse($markdown);
+        die();
+    }
+    else
+    {
+        $head = <<<EOF
 <head>
 <title>Colored Markdown Demo</title>
 <script type="text/x-mathjax-config">
@@ -32,13 +35,13 @@ MathJax.Hub.Config({
 </head>
 <body>
 EOF;
-    if ($debug)
-        echo $parser->parse($markdown);
-    else
         echo $head . $parser->parse($markdown) . '</body>';
+        die();
+    }
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST' && $_POST['text']) {
     $markdown = $_POST['text'];
     echo $parser->parse($markdown);
+    die();
 } else {
     http_response_code(404);
     die();

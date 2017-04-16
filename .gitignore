@@ -1,5 +1,6 @@
 *.sw[op]
+tags
 vendor
-test*
+test.*
 composer.lock
 composer.phar
