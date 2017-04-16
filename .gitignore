@@ -3,4 +3,3 @@ tags
 vendor
 test.*
 composer.lock
-composer.phar
