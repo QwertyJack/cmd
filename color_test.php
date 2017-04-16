@@ -10,5 +10,8 @@
  * @license MIT
  */
 
-require 'Colorful.php';
-jack\cmd\color_test();
+namespace jack\cmd;
+
+require 'vendor/autoload.php';
+
+Colorful::color_test();

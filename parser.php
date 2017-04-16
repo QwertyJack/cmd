@@ -2,7 +2,7 @@
 
 namespace jack\cmd;
 
-require_once 'ColoredMarkdown.php';
+require 'vendor/autoload.php';
 
 $debug = True;
 

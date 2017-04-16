@@ -11,9 +11,6 @@
 
 namespace jack\cmd;
 
-require_once 'vendor/autoload.php';
-require_once 'ColoredTrait.php';
-
 class ColoredMarkdown extends \cebe\markdown\GithubMarkdown
 {
     protected $escapeCharacters = [

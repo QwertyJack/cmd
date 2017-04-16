@@ -2,19 +2,6 @@
 
 namespace jack\cmd;
 
-function color($text, $modifier = Array(), $forecolor = null, $backcolor = null) {
-    $mode = (count($modifier) === 0) ? '' : implode("_and_", $modifier);
-    $fore = (strlen($forecolor) === 0) ? '' : '_' . $forecolor;
-    $back = (strlen($backcolor) === 0) ? '' : '_on_' . $backcolor;
-    $methodname = strtolower(ltrim($mode . $fore . $back, '_'));
-    return call_user_func_array('jack\cmd\Colorful::' . $methodname, array($text));
-}
-
-function color_test() {
-    foreach (Colorful::$modifiers as $k => $v)
-        print color($k, Array($k)) . PHP_EOL;
-}
-
 class Colorful {
   // Ansi Modifiers
   public static $modifiers = Array(
@@ -108,4 +95,20 @@ class Colorful {
     $text = implode("", $arguments);
     return sprintf(self::parseAttr($methodname), $text);
   }
+
+  /* newly added */
+  public static function color_test()
+  {
+      foreach (self::$modifiers as $k => $v)
+          print self::color($k, Array($k)) . PHP_EOL;
+  }
+
+  public static function color($text, $modifier = Array(), $forecolor = null, $backcolor = null) {
+      $mode = (count($modifier) === 0) ? '' : implode("_and_", $modifier);
+      $fore = (strlen($forecolor) === 0) ? '' : '_' . $forecolor;
+      $back = (strlen($backcolor) === 0) ? '' : '_on_' . $backcolor;
+      $methodname = strtolower(ltrim($mode . $fore . $back, '_'));
+      return self::$methodname($text);
+  }
+
 }

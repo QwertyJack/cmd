@@ -11,10 +11,6 @@
 
 namespace jack\cmd;
 
-require_once 'vendor/autoload.php';
-require_once 'ColoredTrait.php';
-require_once 'Colorful.php';
-
 class ColoredMarkdownCLI extends \cebe\markdown\Parser
 {
     protected $escapeCharacters = [
@@ -44,14 +40,14 @@ class ColoredMarkdownCLI extends \cebe\markdown\Parser
     protected function renderColorBlock($block)
     {
         $inner = $this->parse(implode("\n", $block['content']));
-        return color($inner, Array(), ltrim($block['color']));
+        return Colorful::color($inner, Array(), ltrim($block['color']));
     }
 
     use InlineColorTrait_nonested;
     //ColoredTrait.php:    protected function renderColor($element)
     protected function renderColor($element)
     {
-        return color($this->renderAbsy($element[1]), Array(), $element[2]);
+        return Colorful::color($this->renderAbsy($element[1]), Array(), $element[2]);
     }
 
     use MathJaxBlockTrait;
@@ -83,12 +79,12 @@ class ColoredMarkdownCLI extends \cebe\markdown\Parser
     //vendor/cebe/markdown/inline/EmphStrongTrait.php:	protected function renderStrong($block)
 	protected function renderStrong($block)
 	{
-        return color($this->renderAbsy($block[1]), array('bold'));
+        return Colorful::color($this->renderAbsy($block[1]), array('bold'));
 	}
     //vendor/cebe/markdown/inline/EmphStrongTrait.php:	protected function renderEmph($block)
 	protected function renderEmph($block)
 	{
-        return color($this->renderAbsy($block[1]), array('reverse'));
+        return Colorful::color($this->renderAbsy($block[1]), array('reverse'));
 	}
 
     use \cebe\markdown\block\FencedCodeTrait;
@@ -145,8 +141,8 @@ class ColoredMarkdownCLI extends \cebe\markdown\Parser
 			}
 		}
 		//$attributes = $this->renderAttributes($block);
-        return '[' . color($this->renderAbsy($block['text']), Array('underline'), 'blue') .
-            '](' . color($block['url'], Array(), 'green') . ')';
+        return '[' . Colorful::color($this->renderAbsy($block['text']), Array('underline'), 'blue') .
+            '](' . Colorful::color($block['url'], Array(), 'green') . ')';
 		//return '<a href="' . htmlspecialchars($block['url'], ENT_COMPAT | ENT_HTML401, 'UTF-8') . '"'
 			//. (empty($block['title']) ? '' : ' title="' . htmlspecialchars($block['title'], ENT_COMPAT | ENT_HTML401 | ENT_SUBSTITUTE, 'UTF-8') . '"')
 			//. $attributes . '>' . $this->renderAbsy($block['text']) . '</a>';
@@ -169,9 +165,9 @@ class ColoredMarkdownCLI extends \cebe\markdown\Parser
                 return $block['orig'];
             }
         }
-        return '![' . color($block['text'], Array('underline'), 'magenta') . '](' .
-			color($block['url'], Array(), 'yellow') .
-            (empty($block['title']) ? '' : color(' "' . $block['title'] . '"', Array('bold'))) . ')';
+        return '![' . Colorful::color($block['text'], Array('underline'), 'magenta') . '](' .
+			Colorful::color($block['url'], Array(), 'yellow') .
+            (empty($block['title']) ? '' : Colorful::color(' "' . $block['title'] . '"', Array('bold'))) . ')';
     }
     //vendor/cebe/markdown/inline/StrikeoutTrait.php:	protected function renderStrike($block)
 }

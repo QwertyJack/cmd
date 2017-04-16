@@ -3,9 +3,9 @@
 
 namespace jack\cmd;
 
-require_once 'ColoredMarkdownCLI.php';
+require 'vendor/autoload.php';
 
-$parser = new ColoredMarkdownCLI;
+$parser = new ColoredMarkdownCLI();
 
 if (php_sapi_name() === 'cli') {
     if ($argc > 1)
