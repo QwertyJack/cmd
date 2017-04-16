@@ -120,7 +120,8 @@ $$ note there is 4 spaces in front of the formula.
 This snippet will be parsed as a `code` block thus the 1st '$$' is consumed.
 
 ### {red Source Code}
-+ {maroon See} [{pink demo.md}](demo.md)
++ {maroon Colored Markdown:} [{Purple demo.md}](demo.md)
++ {magenta Project:} [QwertyJack/cmd](https://github.com/QwertyJack/cmd)
 
 ### {blue Known Bugs}
 + Nested inlined Color fails when using a nested color and following by a non-nested inline color element in the same paragraph, i.e. <sup>{blue partial fixed}</sup>
