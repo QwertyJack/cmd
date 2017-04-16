@@ -1,11 +1,10 @@
 {
-    "require": {
-        "cebe/markdown": "~1.1.1"
-    },
-
-	"autoload": {
+    "autoload": {
         "psr-4": {
             "jack\\cmd\\": "cmd"
         }
+    },
+    "require": {
+        "cebe/markdown": "~1.1.1"
     }
 }
