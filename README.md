@@ -10,11 +10,6 @@ add color and MathJax support.
 # checkout src
 git clone https://github.com/QwertyJack/cmd.git
 
-# install composer
-curl -sS https://getcomposer.org/installer | php
-# or
-#php -r "readfile('https://getcomposer.org/installer');" | php
-
 # install dependencies
 php composer.phar update
 ```
@@ -48,12 +43,21 @@ php cli.php demo.php
 
 A playground is [HERE](http://cyp.davidandjack.cn/test/r/).
 
+### Known Bugs
++ The terminal parser fail to parse list begin with `*`.
++ Nested inline color make a mess.
++ Color blocks make the following table cells not parsed correctly.
+
+### TODO
+- Sanitizing; maybe [ircmaxell/Stauros](https://github.com/ircmaxell/Stauros).
+- Beautify tables in terminal.
+- Find a nearest color for unknown ones in terminal instead of just ignore it.
+
 ### Acknowledgement
 + [cebe/markdown](https://github.com/cebe/markdown)
 + [mathjax/MathJax](https://github.com/mathjax/MathJax)
 + [composer/composer](https://github.com/composer/composer)
 + [mogria/colorful.php](https://github.com/mogria/colorful.php)
-+ [showdownjs/showdown](https://github.com/showdownjs/showdown)
-+ [cure53/DOMPurify](https://github.com/cure53/DOMPurify)
++ [XSS vulnerability by @showdownjs](https://github.com/showdownjs/showdown/wiki/Markdown's-XSS-Vulnerability-(and-how-to-mitigate-it))
 
 **HAVE FUN !!!**
