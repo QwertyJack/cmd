@@ -1,5 +1,5 @@
 {
-	"name": "QwertyJack/cmd",
+	"name": "jack/cmd",
 	"description": "Based on cebe/markdown, add color and MathJax support.",
 	"keywords": ["markdown", "color", "MathJax"],
 	"homepage": "https://github.com/QwertyJack/cmd",
