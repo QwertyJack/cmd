@@ -1,10 +1,32 @@
 {
+	"name": "QwertyJack/cmd",
+	"description": "Based on cebe/markdown, add color and MathJax support.",
+	"keywords": ["markdown", "color", "MathJax"],
+	"homepage": "https://github.com/QwertyJack/cmd",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Jack J.",
+			"email": "jiyuanyi1992@gmail.com",
+			"role": "Creator"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/QwertyJack/cmd/issues",
+		"source": "https://github.com/QwertyJack/cmd"
+	},
+    "require": {
+        "cebe/markdown": "~1.1.1"
+    },
     "autoload": {
         "psr-4": {
             "jack\\cmd\\": "cmd"
         }
     },
-    "require": {
-        "cebe/markdown": "~1.1.1"
-    }
+	"bin": [
+        "bin/color_test.php",
+		"bin/parser.php",
+		"bin/cli.php"
+	]
 }
