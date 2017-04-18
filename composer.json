@@ -25,8 +25,7 @@
         }
     },
 	"bin": [
-        "bin/color_test.php",
-		"bin/parser.php",
-		"bin/cli.php"
+		"parser.php",
+		"cli"
 	]
 }

@@ -12,6 +12,6 @@
 
 namespace jack\cmd;
 
-require 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 Colorful::color_test();

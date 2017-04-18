@@ -1,1 +1,0 @@
-bin/inline.php

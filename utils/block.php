@@ -11,7 +11,7 @@
  * @license MIT
  */
 
-require 'vendor/autoload.php';
+require __DIR__ . '/../vendor/autoload.php';
 
 class MyMarkdown extends \cebe\markdown\Markdown
 {
